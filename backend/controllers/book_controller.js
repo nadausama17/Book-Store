@@ -26,7 +26,6 @@ class Book {
       await book.save();
       res.status(200).send({ success: true, data: book });
     } catch (e) {
-      console.log(e);
       if (req.feile)
         fs.unlinkSync(path.join(__dirname, "../images/" + req.file.filename));
       res.status(500).send({ success: false, msg: e.message, data: e });

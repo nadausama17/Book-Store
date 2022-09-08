@@ -15,7 +15,6 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/images", express.static(__dirname + "/images"));
-console.log(__dirname + "/images");
 //routes
 const userRouter = require("./routes/user_routes");
 const bookRouter = require("./routes/book_routes");

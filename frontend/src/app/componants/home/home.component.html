@@ -13,7 +13,7 @@
     </div>
     <div class="text-center">
       <a routerLink="/books/single/{{book._id}}" class="btn btn-primary col-5 me-2 mb-2">View Details</a>
-      <a (click)="addCart(book._id)" class="btn btn-primary col-5 mb-2">Add To Cart</a>
+      <a (click)="addCart(book._id,book.title,book.image,book.price)" class="btn btn-primary col-5 mb-2">Add To Cart</a>
 
       <a *ngIf="userServices.user?.role == 'admin'" 
       class="btn btn-primary col-5 me-2 mb-2" routerLink="/books/update/{{book._id}}">Update</a>

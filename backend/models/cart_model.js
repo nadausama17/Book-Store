@@ -12,6 +12,22 @@ const cartSchema = mongoose.Schema(
           ref: "Book",
           type: mongoose.Schema.Types.ObjectId,
         },
+        bookTitle:{
+          type:String,
+          required:true,
+        },
+        bookImage:{
+          type:String,
+          required:true,
+        },
+        bookPrice:{
+          type:Number,
+          required:true,
+        },
+        bookCount:{
+          type:Number,
+          default:0
+        }
       },
     ],
     totalPrice: {

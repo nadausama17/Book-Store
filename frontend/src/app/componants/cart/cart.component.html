@@ -1,23 +1,26 @@
 <div class="card h-100 m-auto p-5">
-    <div class="row h-100" *ngIf="cartBooks.length >0">
-        <div class="col-12 mb-3" *ngFor="let book of cartBooks">
+    <div class="row h-100" *ngIf="cartData.length >0">
+        <div class="col-12 mb-3" *ngFor="let book of cartData">
             <div class="row">
             <div class="col-2">
-                <img class="img-fluid h-100 w-100" src="{{urlImage}}{{book?.image}}" alt="book-image">
+                <img class="img-fluid h-100 w-100" src="{{urlImage}}{{book.bookImage}}" alt="book-image">
             </div>
             <div class="col-4 position-relative">
-                  <h2>{{book?.title}}</h2>
-                  <h3>Price {{book?.price}} EGP</h3>
+                  <h2>{{book.bookTitle}}</h2>
+                  <h3>Price {{book.bookPrice}} EGP</h3>
+                  <h3>Count: {{book.bookCount}}</h3>
             </div>
+            <div class="col-2">
+                <button class="btn btn-danger btn-block m-3" (click)="deleteFromCart(book.bookId,book.bookPrice,book.bookCount)">Delete book
+                </button>
             </div>
-            <button id="checkout_btn" class="btn btn-danger btn-block m-3" (click)="deleteCart(book._id)">Delete Cart
-            </button>
+            </div>   
         </div>
         <h2 class="ms-auto">Total Price {{totalPrice}} EGP</h2>
-        <button id="checkout_btn" class="btn btn-primary btn-block m-3" (click)="checkout(cartBooks,totalPrice)">Checkout
+        <button id="checkout_btn" class="btn btn-primary btn-block m-3" (click)="checkout(cartData,totalPrice)">Checkout
         </button>
     </div>
-    <div class="row h-100" *ngIf="(cartBooks.length == 0)">
+    <div class="row h-100" *ngIf="(cartData.length == 0)">
         <h3>Your cart is Empty Please add products to your cart</h3>
     </div>
 </div>

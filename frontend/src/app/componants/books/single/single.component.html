@@ -5,9 +5,10 @@
     </div>
     <div class="col-4 position-relative">
         <h2>{{book?.title}}</h2>
-        <h3>By {{book?.author}} - {{book?.category}}</h3>
+        <h3>{{book?.author}} - {{book?.category}}</h3>
         <p class="mb-5">Pages Count: {{book?.numOfPages}}</p>
-        <p class="fs-6">Description: {{book?.description}}</p>
+        <p class="fs-6">Description:</p>
+        <p>{{book?.description}}</p>
         <a routerLink="" class="col-6 btn btn-primary position-absolute bottom-0">Add To Cart</a>
     </div>
     <div class="col-4 text-end">

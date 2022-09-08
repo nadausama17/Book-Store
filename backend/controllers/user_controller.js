@@ -44,10 +44,8 @@ class User {
         email,
         password,
       });
-      console.log(user);
       res.send({ success: true, user, msg: "user register successfully" });
     } catch (e) {
-      console.log(e);
       res.send({ success: false, err: e.message });
     }
   };
@@ -100,7 +98,6 @@ class User {
         data: { user, token },
       });
     } catch (e) {
-      console.log(e);
       res.send({ success: false, msg: e.message });
     }
   };

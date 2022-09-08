@@ -29,10 +29,10 @@ const USER_SCHEMA = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Cart",
   },
-  receipts: [
+  orders: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Receipt",
+      ref: "Order",
     },
   ],
   favoriteBooks: [

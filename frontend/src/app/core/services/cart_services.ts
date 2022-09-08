@@ -17,8 +17,8 @@ export class CartServices {
   getCart(): Observable<any> {
     return this.http.get(`${this.baseUrl}/show`);
   }
-  deleteCart(id: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/delete/${id}`);
+  deleteCart(id: string,bookCount:number,bookPrice:number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/delete/${id}?bookPrice=${bookPrice}&bookCount=${bookCount}`);
   }
   checkOut(data: {}): Observable<any> {
     return this.http.post(`${this.baseUrl}/checkout`, data);

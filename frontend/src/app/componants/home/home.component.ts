@@ -58,12 +58,13 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  addCart(bookId: any) {
+  addCart(bookId: any,bookTitle:string,bookImage:string,bookPrice:number) {
     if (this.userServices.isLoggedIn) {
-      let data = { bookId: bookId };
+      let data = { bookId, bookTitle, bookImage, bookPrice };
       this.cartServices.addToCart(data).subscribe(
-        (data) => this.toastr.success('Book added to cart'),
-        (e) => console.log(e),
+        (res) => this.toastr.success('Book added to cart'),
+        (e) => { console.log(e);
+         this.toastr.error('Failed to add book to cart')},
         () => {}
       );
     } else {

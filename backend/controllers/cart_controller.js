@@ -1,6 +1,6 @@
 const cartModel = require("../models/cart_model");
 const bookModel = require("../models/book_model");
-const receiptModel = require("../models/receipt_model");
+const orderModel = require("../models/order_model");
 const userModel = require("../models/user_model");
 
 class Cart {
@@ -24,34 +24,20 @@ class Cart {
   };
   static addToCart = async (req, res) => {
     try {
-      //const userId = req.user.id;
-      const bookId = req.body.bookId;
-      const book = await bookModel.findById(bookId);
-      if (!book) {
-        return res.status(400).json({
-          message: "There is no book with the given id.",
-        });
-      }
-      // console.log(cart);
-      // let bookIds = [];
-      // for (let b of cart.books) {
-      //   bookIds.push(b.toString());
-      // }
-      // if (bookIds.indexOf(bookId) !== -1) {
-      //   return res.status(400).json({
-      //     message: "Book is already in your cart",
-      //   });
-      // }
+      const { bookId, bookTitle, bookImage, bookPrice } = req.body;
       let cart = null;
       cart = await cartModel.findOne({ userId: req.user._id });
       if (!cart) {
         cart = new cartModel();
         cart.userId = req.user._id;
-        cart.books.push(bookId);
-        cart.totalPrice += book.price;
+        cart.books.push({bookId,bookTitle,bookImage,bookPrice,bookCount:1});
+        cart.totalPrice += bookPrice;
       } else {
-        cart.books.push(bookId);
-        cart.totalPrice += book.price;
+        const cartBookIndex = cart.books.findIndex((book)=> book.bookId == bookId);
+        if(cartBookIndex!=-1) cart.books[cartBookIndex].bookCount += 1;
+        else  
+          cart.books.push({bookId,bookTitle,bookImage,bookPrice,bookCount:1});
+        cart.totalPrice += bookPrice;
       }
       cart.save();
 
@@ -61,33 +47,25 @@ class Cart {
         data: cart,
       });
     } catch (error) {
-      console.log(error);
-      res.send({ success: false, err: error.message });
+      res.status(500).send({ success: false, err: error.message });
     }
   };
   static deleteBookFromCart = async (req, res) => {
     try {
-      const userId = req.user.id;
+      const userId = req.user._id;
       const bookId = req.params.bookId;
-      const book = await bookModel.findById(bookId);
-      if (!book) {
-        return res.status(400).json({
-          success: false,
-          msg: "There is no book with the given id.",
-        });
-      }
-      const cart = await cartModel.findOne({ user: userId });
-      cart.books = cart.books.map((b) => b).filter((b) => b._id != bookId);
-      cart.totalPrice -= book.price;
+      const {bookPrice,bookCount} = req.query;
+      const cart = await cartModel.findOne({ userId });
+      cart.books = cart.books.filter((b) => b.bookId != bookId);
+      cart.totalPrice -= (bookPrice*bookCount);
       cart.save();
-      console.log(cart);
       res.status(200).json({
         success: true,
         msg: "Book removed from cart!",
         data: cart,
       });
     } catch (error) {
-      res.send({ success: false, msg: error.message });
+      res.status(500).send({ success: false, msg: error.message });
     }
   };
   static checkout = async (req, res) => {
@@ -105,14 +83,14 @@ class Cart {
           qty: req.body[book._id.toString()],
         });
       }
-      const receipt = await receiptModel.create({
+      const order = await orderModel.create({
         user: userId,
         productsInfo: products,
         totalPrice: req.body.totalPrice,
       });
       await userModel.update(
         { _id: userId },
-        { $push: { receipts: receipt._id } }
+        { $push: { orders: order._id } }
       );
       cart.books = [];
       cart.totalPrice = 0;
@@ -120,7 +98,7 @@ class Cart {
       return res.status(200).json({
         success: true,
         msg: "Thank you for your order! Books will be sent to you as soon as possible!",
-        data: receipt,
+        data: order,
       });
     } catch (error) {
       res.send({ success: false, msg: error.message });

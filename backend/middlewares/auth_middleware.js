@@ -18,7 +18,6 @@ exports.isAuth = async (req, res, next) => {
     req.token = token;
     next();
   } catch (e) {
-    console.log(e);
     res.send({
       sucess: false,
       error: e.message,

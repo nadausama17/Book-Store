@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
-const receiptSchema = mongoose.Schema(
+const orderSchema = mongoose.Schema(
   {
-    user: {
+    userId: {
       ref: "User",
       type: mongoose.Schema.Types.ObjectId,
     },
@@ -17,6 +17,6 @@ const receiptSchema = mongoose.Schema(
   }
 );
 
-const receiptModel = mongoose.model("Receipt", receiptSchema);
+const orderModel = mongoose.model("Order", orderSchema);
 
-module.exports = receiptModel;
+module.exports = orderModel;
