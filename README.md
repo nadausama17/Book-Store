@@ -1,95 +1,54 @@
 # Book Store Project
-### Description
+This is NTI Graduation project I did it with my teammate <a href="https://github.com/Abdallahhany">Abdallah Hany</a> to manage books by admin and users can make orders.
+## Features
+**User**
+- User can see all the books
+- User can see the details of a single book
+- User can regisrer and login
+- Registered User can add book to the cart
+- Registered User can see all the books added to his cart
+- Registered User can make order from the books in his cart
+- Registered User can view/edit his own profile
+- Registered User can logout<br/>
 
-Book Store is a simple single page application (SPA) that lets you buy, rate and leave your comment for all the books that are available in the store. You can also see all of your purchased books history or create your own favorite books list.
+**Admin**
+- Admin can see all the books and the details of a single book
+- Admin can add/delete books
+- Admin can edit single book
+- Admin can see the users of the system
+- Admin can view/edit his own profile
+## Technologies
+- Front-end<br/>
+**HTML** - **CSS** - **Bootstrap** - **Angular**
+- Back-end and Database<br/>
+**NodeJS** - **ExpressJS** - **MongoDB**<br/>
 
-`it's Graduation Project for NTI DEY Node JS and Angular`
-### Tech
-
-Book Store uses a number of open source projects to work:
-* [MongoDB](https://www.mongodb.com) - Free and open-source cross-platform document-oriented database
-* [Mongoose](http://mongoosejs.com/index.html) - Elegant MongoDB object modeling for NodeJS
-* [NodeJS](https://nodejs.org/en/) - Event I/O for the backend
-* [ExpressJS](https://expressjs.com) - Fast, opinionated, minimalist web framework for NodeJS
-* [JSONWebToken](https://jwt.io) - Used for authorization and authentication
-* [Angular](https://angular.io) - Platform that makes it easy to build applications with the web
-
-### Installation
-
-Book Store requires
-* [MongoDB](https://www.mongodb.com/download-center#community) v3.6+
-* [NodeJS](https://nodejs.org/en/) v8+
-
-1- First step clone the repo:
-
+We used **"mongoose"** to create schema for the models.<br/>
+We Used **"cors"** package to make Angular use the Back-end APIs.<br/>
+We Used **"bcrypt"** and **"jsonwebtoken"** packages to encrypt the password and make token for logged users.
+## Get Started
+1- Clone the project
 ```
-git clone https://github.com/Abdallahhany/NTI-DEY-Node-JS-and-Angular-Graduation-Project
+git clone git@github.com:nadausama17/Book-Store.git
 ```
+2- Open the backend folder and add .env to it that contains<br/>
+`PORT= 3000 or the port you want` <br/>
+`MONGOURL=your mongodb url` <br/>
+`JWT_SECRET=any secret key you want` <br/><br/>
 
-2- To get into backend and run it do the following 
-
+3- Open the terminal for the backend folder and write
+```  
+npm install  //to install all the packages in your project
 ```
-cd backend
+4- To run the backend write
 ```
-
-3- Add `.env` file which contain:
-
-`PORT=3000` (for example)
-
-`MONGOURL=` specify your database URL
-
-`JWT_SECRET=` add secret key for JWT
-
-4- Run to install the required packages
+npm start or node index
 ```
-npm install
-``` 
-
-5- start the backend
+5- Open the terminal for the frontend folder and write
 ```
-npm start
+npm install  //to install all the packages in your project
 ```
-
-6- open a new terminal for the frontend and run the following:
-
-to get in frontend folder
+6- To run the frontend write
 ```
-cd frontend
+ng serve //the localhost will appear then open it in your browser
 ```
-7- install the required packages
-```
-npm install
-```
-8- Start the backend
-```
-npm start
-```
-
-### Features
-
-- Anonymous users
-    - Login/Register
-    - View all books
-    - View books details, rating and comments
-
-- Authenticated users
-    - Buy books
-    - Rate books
-    - Comment books
-    - View user profiles
-    - View his own purchases history
-    - Create favorite books list
-    - Can change his own avatar
-
-- Admin users
-    - Add books to the store
-    - Edit books
-    - Delete books
-    - Edit/Delete offensive user comments
-    - Block/Unblock user from commenting
-    - Change unappropriated user avatars
-### Authors
-
-* [Abdallah Rashed](https://github.com/Abdallahhany)
-* [Nada Usama](https://github.com/nadausama17)
-
