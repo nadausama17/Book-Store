@@ -11,15 +11,15 @@ class Cart {
         .findOne({ userId: userId })
         .populate("books");
       if (!cart) {
-        return res.send({ success: false, msg: "This user has no carts" });
+        return res.status(404).send({ success: false, msg: "This user has no carts" });
       }
-      res.send({
+      res.status(200).send({
         success: true,
         books: cart.books,
         totalPrice: cart.totalPrice,
       });
     } catch (error) {
-      res.send({ success: false, err: error.message });
+      res.status(500).send({ success: false, err: error.message });
     }
   };
   static addToCart = async (req, res) => {
@@ -71,22 +71,17 @@ class Cart {
   static checkout = async (req, res) => {
     try {
       const userId = req.user.id;
-      let products = [];
+      let books = [];
       const cart = await cartModel.findOne({ user: userId }).populate("books");
       for (let book of cart.books) {
-        products.push({
-          id: book._id,
-          title: book.title,
-          author: book.author,
-          cover: book.cover,
-          price: book.price,
-          qty: req.body[book._id.toString()],
-        });
+        books.push({bookId:book.bookId,bookTitle:book.bookTitle,bookPrice:book.bookPrice,
+        bookCount:book.bookCount,bookImage:book.bookImage});
       }
       const order = await orderModel.create({
         user: userId,
-        productsInfo: products,
+        books,
         totalPrice: req.body.totalPrice,
+        dateCreated: req.body.dateCreated,
       });
       await userModel.update(
         { _id: userId },
@@ -97,11 +92,11 @@ class Cart {
       cart.save();
       return res.status(200).json({
         success: true,
-        msg: "Thank you for your order! Books will be sent to you as soon as possible!",
+        msg: "Thank you for your order! You can check it at the My Orders tab",
         data: order,
       });
     } catch (error) {
-      res.send({ success: false, msg: error.message });
+      res.status(500).send({ success: false, msg: error.message });
     }
   };
 }

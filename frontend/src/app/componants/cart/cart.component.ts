@@ -47,22 +47,21 @@ export class CartComponent implements OnInit {
   }
 
   checkout(cartBooks: any[], totalPrice: number) {
+    let today = new Date();
     const data = {
       products: cartBooks,
       totalPrice,
+      dateCreated: today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate(),
     };
-    this.cartServices.checkOut(data).subscribe((res) => {
-      console.log(res);
-
-      if (!res.success) {
-        this.toastr.error(res.msg);
+    this.cartServices.checkOut(data).subscribe(
+      (res) => {
+        this.toastr.success(res.msg);
+        this.router.navigateByUrl(`/`);
+      },
+      (e) =>{
+        this.toastr.error(e.msg);
         this.router.navigateByUrl('/');
-        return;
       }
-      this.toastr.success(res.msg);
-      this.router.navigateByUrl(`/`);
-
-      return;
-    });
+    );
   }
 }

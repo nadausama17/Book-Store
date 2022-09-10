@@ -10,7 +10,7 @@ import { UserServices } from 'src/app/core/services/user_services';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
-  user!: User;
+  user: User | undefined;
 
   constructor(
     private router: Router,
@@ -20,15 +20,12 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this._userService.getMe().subscribe((res) => {
-      console.log(res);
-
       if (!res.success) {
         this.toastr.error('Login first To access this page');
         this.router.navigateByUrl('/login');
         return;
       }
       this.user = res.user;
-      console.log(this.user);
     });
   }
 }

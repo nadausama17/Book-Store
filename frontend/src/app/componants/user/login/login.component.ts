@@ -41,8 +41,9 @@ export class LoginComponent implements OnInit {
         return this.toastr.error(res.msg);
       }
       console.log(res);
+      // this.userServices.userRole = res.data.user.role;
       this.userServices.isLoggedIn = true;
-      this.userServices.user = res.user;
+      this.userServices.user = res.data.user;
       localStorage.setItem('token', res.data.token);
       this.toastr.success(res.msg);
       return this.router.navigateByUrl('/profile');

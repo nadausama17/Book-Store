@@ -19,12 +19,12 @@
           [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}">Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" *ngIf="userServices.user?.role == 'admin'" routerLink="/books/add" 
+          <a class="nav-link" *ngIf="userServices.user?.role" routerLink="/books/add" 
           [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}">
           Add Book</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" *ngIf="userServices.user?.role == 'admin'" routerLink="/users/all" [routerLinkActive]="'active'"
+          <a class="nav-link" *ngIf="userServices.user?.role" routerLink="/users/all" [routerLinkActive]="'active'"
             [routerLinkActiveOptions]="{exact:true}">
             All Users</a>
         </li>

@@ -19,6 +19,7 @@ export class NavComponent implements OnInit {
       if (res.success) {
         this.userServices.isLoggedIn = true;
         this.userServices.user = res.user;
+        // this.userServices.userRole = res.user.role;
       }
     });
   }
