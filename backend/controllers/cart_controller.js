@@ -39,7 +39,7 @@ class Cart {
           cart.books.push({bookId,bookTitle,bookImage,bookPrice,bookCount:1});
         cart.totalPrice += bookPrice;
       }
-      cart.save();
+      await cart.save();
 
       res.status(200).json({
         success: true,
@@ -58,7 +58,7 @@ class Cart {
       const cart = await cartModel.findOne({ userId });
       cart.books = cart.books.filter((b) => b.bookId != bookId);
       cart.totalPrice -= (bookPrice*bookCount);
-      cart.save();
+      await cart.save();
       res.status(200).json({
         success: true,
         msg: "Book removed from cart!",
@@ -89,7 +89,7 @@ class Cart {
       );
       cart.books = [];
       cart.totalPrice = 0;
-      cart.save();
+      await cart.save();
       return res.status(200).json({
         success: true,
         msg: "Thank you for your order! You can check it at the My Orders tab",
@@ -99,6 +99,24 @@ class Cart {
       res.status(500).send({ success: false, msg: error.message });
     }
   };
+
+  static changeBookCount = async (req,res)=>{
+    const bookId = req.params.bookId;
+    const userId = req.user._id;
+    try{
+      const cart = await cartModel.findOne({userId}).populate('books');
+      const bookIndex = cart.books.findIndex((b)=> b.bookId == bookId);
+      //remove all the count of this book from price untill we get the new count
+      let newTotalPrice = cart.totalPrice - (cart.books[bookIndex].bookPrice*cart.books[bookIndex].bookCount);
+      cart.books[bookIndex].bookCount = req.body.bookCount;
+      //add the price of the books after updating the count
+      cart.totalPrice = newTotalPrice + (cart.books[bookIndex].bookCount*cart.books[bookIndex].bookPrice);
+      await cart.save();
+      res.status(200).send({success:true, msg:'Book count updated', books:cart.books , totalPrice:cart.totalPrice});
+    }catch(err){
+      res.status(500).send({success:false, msg:err.message});
+    }
+  }
 }
 
 module.exports = Cart;

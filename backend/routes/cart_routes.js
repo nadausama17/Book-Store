@@ -8,6 +8,7 @@ cartRouter.get("/show", isAuth, cartController.showCart);
 cartRouter.post("/add", isAuth, cartController.addToCart);
 cartRouter.delete("/delete/:bookId", isAuth, cartController.deleteBookFromCart);
 cartRouter.post("/checkout", isAuth, cartController.checkout);
+cartRouter.post("/changebookcount/:bookId",isAuth,cartController.changeBookCount)
 cartRouter.all("*", NotFound.notFoundPage);
 
 module.exports = cartRouter;

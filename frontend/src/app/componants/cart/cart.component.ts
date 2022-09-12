@@ -34,11 +34,37 @@ export class CartComponent implements OnInit {
     );
   }
 
+  incrementCount(countInput:any){
+    countInput.value++;
+  }
+
+  decrementCount(countInput:any){
+    if(countInput.value >1){
+      countInput.value--;
+    }
+  }
+
+  changeCountFun(countInput:any,bookId:string){
+    let bookCount = Number(countInput.value);
+    if(typeof bookCount == "number" && bookCount>0){
+      let data = {bookCount};
+      this.cartServices.changeBookCount(data,bookId).subscribe(
+        (res)=>{
+          this.toastr.success(res.msg); 
+          this.totalPrice = res.totalPrice;
+          this.cartData = res.books;
+        },
+        (e)=>console.log(e) 
+      )
+    }
+  }
+
   deleteFromCart(bookId:string,bookPrice:number,bookCount:number) {
     this.cartServices.deleteCart(bookId,bookCount,bookPrice).subscribe(
       (res) => {
         this.toastr.success(res.msg);
         this.cartData = this.cartData.filter((book)=>book.bookId != bookId);
+        this.totalPrice = res.data.totalPrice;
       },
       (e)=>{
         this.toastr.error(e.msg);

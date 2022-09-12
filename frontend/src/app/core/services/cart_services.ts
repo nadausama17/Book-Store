@@ -23,4 +23,7 @@ export class CartServices {
   checkOut(data: {}): Observable<any> {
     return this.http.post(`${this.baseUrl}/checkout`, data);
   }
+  changeBookCount(data:any,bookId:string):Observable<any>{
+    return this.http.post(`${this.baseUrl}/changebookcount/${bookId}`,data);
+  }
 }

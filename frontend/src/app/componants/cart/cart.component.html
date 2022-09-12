@@ -8,10 +8,32 @@
             <div class="col-4 position-relative">
                   <h2>{{book.bookTitle}}</h2>
                   <h3>Price {{book.bookPrice}} EGP</h3>
-                  <h3>Count: {{book.bookCount}}</h3>
+                  <div class="row gx-0">
+                    <div class="col-2 text-center">
+                        <button class="w-75 h-100" (click)="decrementCount(countInput)">-</button>
+                    </div>
+                        
+                    <div class="col-2 text-center">
+                        <input #countInput disabled class="text-center w-100 h-100" type="text" 
+                         value="{{book.bookCount}}">
+
+                    </div>
+
+                    <div class="col-2 text-center"><button class="w-75 h-100" 
+                        (click)="incrementCount(countInput)">+</button>
+                    </div>
+
+                    <div class="col-5 text-center">
+                        <button class="btn w-100" 
+                        (click)="changeCountFun(countInput,book.bookId)"
+                        [ngClass]="{'btn-warning':countInput.value != book.bookCount}" 
+                        [disabled]="countInput.value == book.bookCount">Update Count</button>
+                    </div>
+                  </div>
             </div>
-            <div class="col-2">
-                <button class="btn btn-danger btn-block m-3" (click)="deleteFromCart(book.bookId,book.bookPrice,book.bookCount)">Delete book
+            <div class="col-2 ms-auto">
+                <button class="btn btn-danger btn-block" 
+                (click)="deleteFromCart(book.bookId,book.bookPrice,book.bookCount)">Delete book
                 </button>
             </div>
             </div>   
