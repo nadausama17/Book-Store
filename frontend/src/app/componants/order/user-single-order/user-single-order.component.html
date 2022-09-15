@@ -1,1 +1,28 @@
-<p>user-single-order works!</p>
+<div class="card">
+    <div class="card-header p-3 m-0 row">
+        <h3 class="col m-0">Order ID: {{orderId}}</h3>
+        <h3 class="col m-0 text-end">{{order?.dateCreated}}</h3>
+    </div>
+    <div class="card-body p-3 row gx-5 justify-content-center">
+        <div class="col-3 text-center" *ngFor="let book of order?.books">
+            <div class="card">
+                <div>
+                    <img class="img-fluid w-100" [src]="baseUrlImg+book.bookImage" alt="bookimg">
+                </div>
+                <div class="row p-2">
+                    <div class="col m-0">{{book.bookTitle}} x{{book.bookCount}}</div>
+                    <div class="col m-0">{{book.bookPrice}} EGP</div>
+                </div>
+            </div>    
+        </div>
+    </div>
+    <div class="row p-5">
+        <h2 class="col">Total Price: {{order?.totalPrice}} EGP</h2>
+        <div *ngIf="!order?.delivered" class="col text-end">
+            <button class="btn btn-danger">Cancel Order</button>
+        </div>
+        <div *ngIf="order?.delivered" class="col text-end">
+            <button class="btn btn-success" disabled>Delivered</button>
+        </div>
+    </div>
+</div>

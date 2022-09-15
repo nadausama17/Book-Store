@@ -14,4 +14,8 @@ export class OrderService {
   getUserOrders():Observable<any>{
     return this._http.get(`${this.baseUrl}/`);
   }
+
+  getUserSingleOrder(orderId:string):Observable<any>{
+    return this._http.get(`${this.baseUrl}/single/${orderId}`);
+  }
 }

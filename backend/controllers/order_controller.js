@@ -10,6 +10,16 @@ class Order{
             res.status(500).send({status:false, msg:err.message})
         }
     }
+    static getSingleUserOrder = async (req,res)=>{
+        const orderId = req.params.orderId;
+        const userId = req.user._id;
+        try{
+            const order = await orderModel.findOne({userId,_id:orderId});
+            res.status(200).send({success:true, data:order});
+        }catch(err){
+            res.status(500).send({success:false, msg:err.message});
+        }
+    }
 }
 
 module.exports = Order;

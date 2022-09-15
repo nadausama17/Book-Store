@@ -1,6 +1,5 @@
 import { Cart } from './cart';
 import { Book } from './book';
-import { Receipt } from './receipt';
 
 export interface User {
   userName: string;
@@ -13,7 +12,6 @@ export interface User {
   _id: string;
   cart?: Cart;
   favoriteBooks?: Book[];
-  receipts?: Receipt[];
   tokens?: [
     {
       token: string;
