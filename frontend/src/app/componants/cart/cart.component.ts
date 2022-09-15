@@ -74,10 +74,11 @@ export class CartComponent implements OnInit {
 
   checkout(cartBooks: any[], totalPrice: number) {
     let today = new Date();
+    let todaymonth = String(today.getMonth()+1).padStart(2,'0');
     const data = {
       products: cartBooks,
       totalPrice,
-      dateCreated: today.getFullYear()+"-"+(today.getMonth()+1)+"-"+today.getDate(),
+      dateCreated: today.getFullYear()+"-"+todaymonth+"-"+today.getDate(),
     };
     this.cartServices.checkOut(data).subscribe(
       (res) => {

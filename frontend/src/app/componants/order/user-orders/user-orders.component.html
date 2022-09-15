@@ -1,0 +1,39 @@
+<div class="mat-elevation-z8">
+    <table class="table" mat-table [dataSource]="dataSource">
+  
+      <!-- Position Column -->
+      <ng-container matColumnDef="_id">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell class="py-3" *matCellDef="let element">
+          <a routerLink="/myorders/single/{{element._id}}">{{element._id}}</a>
+        </td>
+      </ng-container>
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="totalPrice">
+        <th mat-header-cell *matHeaderCellDef> Order Price </th>
+        <td mat-cell class="py-3" *matCellDef="let element">{{element.totalPrice}}</td>
+      </ng-container>
+  
+      <!-- Weight Column -->
+      <ng-container matColumnDef="dateCreated">
+        <th mat-header-cell *matHeaderCellDef> Order Date </th>
+        <td mat-cell class="py-3" *matCellDef="let element">{{element.dateCreated}}</td>
+      </ng-container>
+  
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="delivered">
+        <th mat-header-cell *matHeaderCellDef> Delivered </th>
+        <td mat-cell class="py-3" *matCellDef="let element">{{element.delivered ? 'Yes':'No'}} </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                   showFirstLastButtons 
+                   aria-label="Select page of periodic elements">
+    </mat-paginator>
+</div>
+  

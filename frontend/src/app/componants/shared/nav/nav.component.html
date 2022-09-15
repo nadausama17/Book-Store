@@ -19,6 +19,10 @@
           [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}">Profile</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" *ngIf="userServices.isLoggedIn" routerLink="/myorders" 
+          [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}">My Orders</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" *ngIf="userServices.user?.role" routerLink="/books/add" 
           [routerLinkActive]="'active'" [routerLinkActiveOptions]="{exact:true}">
           Add Book</a>

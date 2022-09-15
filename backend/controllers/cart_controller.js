@@ -70,7 +70,7 @@ class Cart {
   };
   static checkout = async (req, res) => {
     try {
-      const userId = req.user.id;
+      const userId = req.user._id;
       let books = [];
       const cart = await cartModel.findOne({ user: userId }).populate("books");
       for (let book of cart.books) {
@@ -78,15 +78,11 @@ class Cart {
         bookCount:book.bookCount,bookImage:book.bookImage});
       }
       const order = await orderModel.create({
-        user: userId,
+        userId,
         books,
         totalPrice: req.body.totalPrice,
         dateCreated: req.body.dateCreated,
       });
-      await userModel.update(
-        { _id: userId },
-        { $push: { orders: order._id } }
-      );
       cart.books = [];
       cart.totalPrice = 0;
       await cart.save();

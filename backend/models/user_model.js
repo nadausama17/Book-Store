@@ -32,12 +32,6 @@ const USER_SCHEMA = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Cart",
   },
-  orders: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Order",
-    },
-  ],
   favoriteBooks: [
     {
       type: mongoose.Schema.Types.ObjectId,

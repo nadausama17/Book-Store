@@ -5,6 +5,8 @@ import { SingleComponent } from './componants/books/single/single.component';
 import { UpdateBookComponent } from './componants/books/update-book/update-book.component';
 import { CartComponent } from './componants/cart/cart.component';
 import { HomeComponent } from './componants/home/home.component';
+import { UserOrdersComponent } from './componants/order/user-orders/user-orders.component';
+import { UserSingleOrderComponent } from './componants/order/user-single-order/user-single-order.component';
 import { AllComponent } from './componants/user/all/all.component';
 import { ChangePasswordComponent } from './componants/user/change-password/change-password.component';
 import { EditProfileComponent } from './componants/user/edit-profile/edit-profile.component';
@@ -42,7 +44,11 @@ const routes: Routes = [
       { path: 'edit/:userId', component: EditComponent },
     ],
   },
-  { path:'cart', component: CartComponent, canActivate:[UserGuard]}
+  { path:'cart', component: CartComponent, canActivate:[UserGuard]},
+  { path:'myorders', children:[
+    {path:'', component:UserOrdersComponent, canActivate:[UserGuard]},
+    {path:'single/:orderId', component:UserSingleOrderComponent, canActivate:[UserGuard]}
+  ]}
 ];
 
 @NgModule({

@@ -24,7 +24,10 @@ import { EditComponent } from './componants/user/edit/edit.component';
 import { EditProfileComponent } from './componants/user/edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './componants/user/change-password/change-password.component';
 import { CartComponent } from './componants/cart/cart.component';
-
+import { UserOrdersComponent } from './componants/order/user-orders/user-orders.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { UserSingleOrderComponent } from './componants/order/user-single-order/user-single-order.component';
 
 
 @NgModule({
@@ -43,6 +46,8 @@ import { CartComponent } from './componants/cart/cart.component';
     EditProfileComponent,
     ChangePasswordComponent,
     CartComponent,
+    UserOrdersComponent,
+    UserSingleOrderComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +59,8 @@ import { CartComponent } from './componants/cart/cart.component';
     ToastrModule.forRoot(),
     NgbModule,
     MatIconModule,
+    MatTableModule,
+    MatPaginatorModule,
   ],
   providers: [
     UserServices,
