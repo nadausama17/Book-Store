@@ -1,7 +1,10 @@
 <div class="row g-5 position-relative">
   <div class="col-4" *ngFor="let book of books">
   <div class="card h-100 p-3">
-    <h2>{{book.title}}</h2>
+    <div class="row">
+      <h2 class="col">{{book.title}}</h2>
+      <mat-icon (click)="addToFavourite(book._id)" class="col text-end fs-2 w-100 h-100">favorite</mat-icon>
+    </div>
     <img class="img-fluid" src="http://localhost:3000/images/{{book.image}}" alt="book-image">
     <div class="row my-3 text-center">
       <div>

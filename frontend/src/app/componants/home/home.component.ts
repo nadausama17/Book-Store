@@ -71,4 +71,12 @@ export class HomeComponent implements OnInit {
       this.toastr.error('Please Login to add to cart');
     }
   }
+
+  addToFavourite(bookId:any){
+    let data = { bookId };
+    this.bookServices.addToFavourite(data).subscribe(
+      (res)=> this.toastr.success(res.msg),
+      (e)=> {this.toastr.error(e.msg); console.log(e);}
+    )
+  }
 }

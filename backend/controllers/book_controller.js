@@ -1,4 +1,5 @@
 const bookModel = require("../models/book_model");
+const userModel = require("../models/user_model");
 const fs = require("fs");
 const path = require("path");
 
@@ -66,6 +67,24 @@ class Book {
       res.status(500).send({ success: false, msg: e.message, data: e });
     }
   };
+
+  static addBookToFavourtie = async (req,res)=>{
+    const bookId = req.body.bookId;
+    const userId = req.user._id;
+    try{
+      const book = await bookModel.findOne({_id:bookId});
+      const bookAdded = await userModel.findOneAndUpdate({_id: userId},
+        {$push:{'favoriteBooks':{bookId: book._id,bookImage: book.image,bookTitle: book.title,
+        bookPrice: book.price}}},{runValidators:true});
+
+      if(!bookAdded) res.status(404).send({success:false, msg:'Failed to add to favourite'});
+
+      res.status(200).send({success: true, msg: 'Book added to favourtie'});  
+
+    }catch(err){
+      res.status(500).send({success: false, msg:err.message})
+    }
+  }
 }
 
 module.exports = Book;

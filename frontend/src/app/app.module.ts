@@ -28,6 +28,7 @@ import { UserOrdersComponent } from './componants/order/user-orders/user-orders.
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { UserSingleOrderComponent } from './componants/order/user-single-order/user-single-order.component';
+import { FavouriteComponent } from './componants/favourite/favourite.component';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { UserSingleOrderComponent } from './componants/order/user-single-order/u
     CartComponent,
     UserOrdersComponent,
     UserSingleOrderComponent,
+    FavouriteComponent,
   ],
   imports: [
     BrowserModule,

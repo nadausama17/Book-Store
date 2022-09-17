@@ -34,8 +34,22 @@ const USER_SCHEMA = mongoose.Schema({
   },
   favoriteBooks: [
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Book",
+      bookId:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Book'
+      },
+      bookTitle:{
+        type: String,
+        required: true,
+      },
+      bookImage:{
+        type: String,
+        required: true,
+      },
+      bookPrice:{
+        type: Number,
+        required: true,
+      }
     },
   ],
   tokens: [

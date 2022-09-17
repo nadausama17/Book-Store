@@ -12,6 +12,7 @@ bookRouter.get("/single/:bookId", bookController.singleBook);
 //admin
 bookRouter.post("/add", isAuth, authRoles("admin"),upload.single("bookImg"),
 bookController.addBook);
+bookRouter.post("/addtofavourite",isAuth,bookController.addBookToFavourtie);
 
 bookRouter.put("/update/:bookId",isAuth,authRoles("admin"),upload.single("bookImg"),
 bookController.updateBook);

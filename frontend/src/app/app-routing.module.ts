@@ -4,6 +4,7 @@ import { AddBookComponent } from './componants/books/add-book/add-book.component
 import { SingleComponent } from './componants/books/single/single.component';
 import { UpdateBookComponent } from './componants/books/update-book/update-book.component';
 import { CartComponent } from './componants/cart/cart.component';
+import { FavouriteComponent } from './componants/favourite/favourite.component';
 import { HomeComponent } from './componants/home/home.component';
 import { UserOrdersComponent } from './componants/order/user-orders/user-orders.component';
 import { UserSingleOrderComponent } from './componants/order/user-single-order/user-single-order.component';
@@ -45,6 +46,7 @@ const routes: Routes = [
     ],
   },
   { path:'cart', component: CartComponent, canActivate:[UserGuard]},
+  { path:'favourite', component: FavouriteComponent, canActivate:[UserGuard]},
   { path:'myorders', children:[
     {path:'', component:UserOrdersComponent, canActivate:[UserGuard]},
     {path:'single/:orderId', component:UserSingleOrderComponent, canActivate:[UserGuard]}

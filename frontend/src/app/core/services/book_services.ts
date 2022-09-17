@@ -26,4 +26,7 @@ export class BookServices {
   deleteBook(id: string): Observable<any> {
     return this._http.delete(`${this.baseURL}/delete/${id}`);
   }
+  addToFavourite(data:any): Observable<any>{
+    return this._http.post(`${this.baseURL}/addtofavourite`,data);
+  }
 }
