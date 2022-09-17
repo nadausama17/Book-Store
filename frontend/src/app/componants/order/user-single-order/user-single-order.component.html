@@ -19,7 +19,7 @@
     <div class="row p-5">
         <h2 class="col">Total Price: {{order?.totalPrice}} EGP</h2>
         <div *ngIf="!order?.delivered" class="col text-end">
-            <button class="btn btn-danger">Cancel Order</button>
+            <button (click)="cancelOrder(orderId)" class="btn btn-danger">Cancel Order</button>
         </div>
         <div *ngIf="order?.delivered" class="col text-end">
             <button class="btn btn-success" disabled>Delivered</button>

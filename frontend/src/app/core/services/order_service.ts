@@ -18,4 +18,8 @@ export class OrderService {
   getUserSingleOrder(orderId:string):Observable<any>{
     return this._http.get(`${this.baseUrl}/single/${orderId}`);
   }
+
+  cancelOrder(orderId:string):Observable<any>{
+    return this._http.delete(`${this.baseUrl}/cancel/${orderId}`);
+  }
 }

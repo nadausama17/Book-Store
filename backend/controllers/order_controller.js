@@ -20,6 +20,17 @@ class Order{
             res.status(500).send({success:false, msg:err.message});
         }
     }
+    static cancelOrder = async (req,res)=>{
+        const orderId = req.params.orderId;
+        const userId = req.user._id;
+        try{
+            const orderCancelled = await orderModel.deleteOne({_id: orderId,userId});
+            if(!orderCancelled) res.status(404).send({success: false, msg: 'Order not found'});
+            res.status(200).send({success:true, msg: 'Order cancelled successfully'});
+        }catch(err){
+            res.status(500).send({success:false, msg:err.message})
+        }
+    }
 }
 
 module.exports = Order;

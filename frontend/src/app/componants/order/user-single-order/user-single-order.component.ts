@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Order } from 'src/app/core/models/order';
 import { OrderService } from 'src/app/core/services/order_service';
 
@@ -14,7 +15,8 @@ export class UserSingleOrderComponent implements OnInit {
   order:Order | undefined;
   baseUrlImg:string = "http://localhost:3000/images/";
 
-  constructor(private _orderService:OrderService,private _activatedRoute:ActivatedRoute) { }
+  constructor(private _orderService:OrderService, private _router:Router,
+    private _activatedRoute:ActivatedRoute, private _toast:ToastrService) { }
 
   ngOnInit(): void {
     this.orderId = this._activatedRoute.snapshot.params["orderId"];
@@ -25,6 +27,16 @@ export class UserSingleOrderComponent implements OnInit {
     this._orderService.getUserSingleOrder(orderId).subscribe(
       (res)=> this.order = res.data,
       (e)=> console.log(e),
+    )
+  }
+
+  cancelOrder(orderId:string){
+    this._orderService.cancelOrder(orderId).subscribe(
+      (res)=> {
+        this._router.navigateByUrl('/myorders');
+        this._toast.success(res.msg)
+      },
+      (e)=> this._toast.error(e.msg)
     )
   }
 
