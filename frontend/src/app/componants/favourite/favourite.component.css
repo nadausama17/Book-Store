@@ -1,0 +1,8 @@
+img{
+    height: 65%;
+    border: 1px solid rgb(211, 206, 206);
+}
+mat-icon{
+    cursor: pointer;
+    color: red;
+}

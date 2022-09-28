@@ -29,4 +29,7 @@ export class BookServices {
   addToFavourite(data:any): Observable<any>{
     return this._http.post(`${this.baseURL}/addtofavourite`,data);
   }
+  getFavBooks(): Observable<any>{
+    return this._http.get(`${this.baseURL}/favbooks`);
+  }
 }

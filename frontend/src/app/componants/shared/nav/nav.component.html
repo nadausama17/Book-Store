@@ -38,7 +38,7 @@
         </li>
         <li class="nav-item ms-auto">
           <div class="row">
-          <a class="nav-link col" *ngIf="userServices.isLoggedIn"  routerLink="/favourites" [routerLinkActive]="'active'"
+          <a class="nav-link col" *ngIf="userServices.isLoggedIn"  routerLink="/favourite" [routerLinkActive]="'active'"
             [routerLinkActiveOptions]="{exact:true}">
             <mat-icon class="fs-2 w-100 h-100">favorite</mat-icon></a>
           <a class="nav-link col" *ngIf="userServices.isLoggedIn"  routerLink="/cart" [routerLinkActive]="'active'"

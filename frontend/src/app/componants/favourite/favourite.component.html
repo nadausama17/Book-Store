@@ -1,1 +1,17 @@
-<p>favourite works!</p>
+<div class="row g-5 position-relative">
+    <div class="col-4" *ngFor="let book of favBooks">
+    <div class="card h-100 p-3">
+      <div class="row">
+        <h2 class="col">{{book.bookTitle}}</h2>
+        <mat-icon (click)="deleteFromFavourite(book.bookId)" class="col text-end fs-2 w-100 h-100">favorite</mat-icon>
+      </div>
+      <img class="img-fluid" src="http://localhost:3000/images/{{book.bookImage}}" alt="book-image">
+      <div class="text-center mt-auto">
+        <h3>Price: {{book.bookPrice}} EGP</h3>
+        <a routerLink="/books/single/{{book.bookId}}" class="btn btn-primary col-5 me-2 mb-2">View Details</a>
+        <a (click)="addCart(book.bookId,book.bookTitle,book.bookImage,book.bookPrice)" class="btn btn-primary col-5 mb-2">Add To Cart</a>
+      </div>
+    </div>
+      
+    </div>
+</div>

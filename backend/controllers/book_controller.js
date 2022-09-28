@@ -85,6 +85,20 @@ class Book {
       res.status(500).send({success: false, msg:err.message})
     }
   }
+
+  static getUserFavBooks = async (req,res)=>{
+    const userId = req.user._id;
+    try{
+      const user = await userModel.findOne({_id:userId});
+
+      if(!user)
+        res.status(404).send({success:false, msg: 'Failed to find user'});
+
+      res.status(200).send({success:true, data: user.favoriteBooks});  
+    }catch(e){
+      res.status(500).send({success:false, msg: e.message});
+    }
+  }
 }
 
 module.exports = Book;
