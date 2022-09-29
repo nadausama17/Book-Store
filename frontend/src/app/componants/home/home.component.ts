@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
   deletedBookId: any;
 
   constructor(
-    private bookServices: BookServices,
+    public bookServices: BookServices,
     public userServices: UserServices,
     private cartServices: CartServices,
     private router: Router,
@@ -72,11 +72,36 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  addToFavourite(bookId:any){
-    let data = { bookId };
+  changeFavouriteStatus(bookId:any,book:Book,addToFav:boolean){
+    if(addToFav){
+      this.addToFavourite(bookId,book);
+    }else{
+      this.deleteFromFavourite(bookId);
+    }
+  }
+
+  addToFavourite(bookId:any,book:Book){
+    let data = { book };
     this.bookServices.addToFavourite(data).subscribe(
-      (res)=> this.toastr.success(res.msg),
+      (res)=> {
+        this.toastr.success(res.msg);
+        this.bookServices.favBooks.push({bookId: book._id,bookImage: book.image,bookTitle: book.title,
+          bookPrice: book.price});
+        this.bookServices.favBooksIds.push(bookId);
+      },
       (e)=> {this.toastr.error(e.msg); console.log(e);}
+    )
+  }
+
+  deleteFromFavourite(bookId:string){
+    this.bookServices.deleteBookFromFav(bookId).subscribe(
+      (res) => {
+        this.bookServices.favBooks = this.bookServices.favBooks.filter((book)=> book.bookId != bookId);
+        const index = this.bookServices.favBooksIds.findIndex((id)=> id == bookId);
+        this.bookServices.favBooksIds.splice(index,1);
+        this.toastr.success(res.msg);
+      },
+      (e) => this.toastr.error(e.msg)
     )
   }
 }

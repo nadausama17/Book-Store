@@ -10,7 +10,9 @@ bookRouter.get("/", bookController.allBooks);
 bookRouter.get("/single/:bookId", bookController.singleBook);
 bookRouter.get("/favbooks", isAuth, bookController.getUserFavBooks);
 
-bookRouter.post("/addtofavourite",isAuth,bookController.addBookToFavourtie);
+bookRouter.post("/addtofavourite", isAuth, bookController.addBookToFavourtie);
+
+bookRouter.delete('/deletefromfav/:bookId', isAuth, bookController.deleteBookFromFav);
 //admin
 bookRouter.post("/add", isAuth, authRoles("admin"),upload.single("bookImg"),
 bookController.addBook);

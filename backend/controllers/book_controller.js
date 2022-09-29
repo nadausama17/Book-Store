@@ -69,10 +69,9 @@ class Book {
   };
 
   static addBookToFavourtie = async (req,res)=>{
-    const bookId = req.body.bookId;
+    const book = req.body.book;
     const userId = req.user._id;
     try{
-      const book = await bookModel.findOne({_id:bookId});
       const bookAdded = await userModel.findOneAndUpdate({_id: userId},
         {$push:{'favoriteBooks':{bookId: book._id,bookImage: book.image,bookTitle: book.title,
         bookPrice: book.price}}},{runValidators:true});
@@ -93,10 +92,30 @@ class Book {
 
       if(!user)
         res.status(404).send({success:false, msg: 'Failed to find user'});
+      
+      const favBooksIDs = [];
+      
+      user.favoriteBooks.forEach((book)=>{
+        favBooksIDs.push(book.bookId);
+      });
 
-      res.status(200).send({success:true, data: user.favoriteBooks});  
+      res.status(200).send({success:true, data: user.favoriteBooks, dataIds: favBooksIDs});  
     }catch(e){
       res.status(500).send({success:false, msg: e.message});
+    }
+  }
+
+  static deleteBookFromFav = async (req,res)=>{
+    const userId = req.user._id;
+    const bookId = req.params.bookId;
+    try{
+      const bookDeleted = await userModel.findOneAndUpdate({_id:userId},
+        {$pull:{'favoriteBooks':{bookId}}},{runValidators:true});
+      if(!bookDeleted)
+        res.status(404).send({success:false, msg: 'Failed to remove from favourite'});
+      res.status(200).send({success:true, msg: 'Book removed from favourite'});    
+    }catch(e){
+      res.status(500).send({success:false, msg:e.message});
     }
   }
 }

@@ -11,24 +11,22 @@ import { UserServices } from 'src/app/core/services/user_services';
 })
 export class FavouriteComponent implements OnInit {
 
-  favBooks:any[] = [];
-
   constructor(private userServices:UserServices, private cartServices:CartServices,
-    private toastr: ToastrService, private _bookServices:BookServices) { }
+    private toastr: ToastrService, public _bookServices:BookServices) { }
 
   ngOnInit(): void {
-    this.getFavBooks();
-  }
-
-  getFavBooks(){
-    this._bookServices.getFavBooks().subscribe(
-      (res) => this.favBooks = res.data,
-      (e) => this.toastr.error(e.msg)
-    )
   }
 
   deleteFromFavourite(bookId:string){
-
+    this._bookServices.deleteBookFromFav(bookId).subscribe(
+      (res) => {
+        this._bookServices.favBooks = this._bookServices.favBooks.filter((book)=> book.bookId != bookId);
+        const index = this._bookServices.favBooksIds.findIndex((id)=> id == bookId);
+        this._bookServices.favBooksIds.splice(index,1);
+        this.toastr.success(res.msg);
+      },
+      (e) => this.toastr.error(e.msg)
+    )
   }
 
   addCart(bookId: any,bookTitle:string,bookImage:string,bookPrice:number) {

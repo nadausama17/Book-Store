@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/core/models/user';
+import { BookServices } from 'src/app/core/services/book_services';
 import { UserServices } from 'src/app/core/services/user_services';
 
 @Component({
@@ -12,6 +13,7 @@ import { UserServices } from 'src/app/core/services/user_services';
 export class NavComponent implements OnInit {
   constructor(
     public userServices: UserServices,
+    private bookServices: BookServices,
     private router: Router,
     private toastr: ToastrService
   ) {
@@ -19,7 +21,13 @@ export class NavComponent implements OnInit {
       if (res.success) {
         this.userServices.isLoggedIn = true;
         this.userServices.user = res.user;
-        // this.userServices.userRole = res.user.role;
+        this.bookServices.getFavBooks().subscribe(
+          (res) => {
+            this.bookServices.favBooks = res.data;
+            this.bookServices.favBooksIds = res.dataIds;
+          },
+          (e) => console.log(e)
+        )
       }
     });
   }
@@ -34,6 +42,8 @@ export class NavComponent implements OnInit {
       this.userServices.isLoggedIn = false;
       this.userServices.user = null;
       localStorage.removeItem('token');
+      this.bookServices.favBooks = [];
+      this.bookServices.favBooksIds = [];
       this.toastr.success(res.msg);
       this.router.navigateByUrl('/');
     });

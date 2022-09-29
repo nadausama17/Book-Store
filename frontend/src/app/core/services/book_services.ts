@@ -10,6 +10,8 @@ export class BookServices {
   constructor(private _http: HttpClient) {}
   baseURL = 'http://localhost:3000/api/books';
   book: Book | null = null;
+  favBooksIds: any[] = [];
+  favBooks: any[] = [];
 
   addBook(data: any): Observable<any> {
     return this._http.post(`${this.baseURL}/add`, data);
@@ -31,5 +33,8 @@ export class BookServices {
   }
   getFavBooks(): Observable<any>{
     return this._http.get(`${this.baseURL}/favbooks`);
+  }
+  deleteBookFromFav(id:string): Observable<any>{
+    return this._http.delete(`${this.baseURL}/deletefromfav/${id}`);
   }
 }
