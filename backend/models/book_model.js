@@ -47,6 +47,15 @@ const bookSchema = mongoose.Schema(
   }
 );
 
+bookSchema.pre('remove', async function(next){
+  try{
+    await this.model('User').updateMany({$pull:{'favoriteBooks':{bookId:this._id}}});
+    await this.model('Cart').updateMany({$pull:{'books':{bookId:this._id}}});
+  }catch(e){
+    console.log(e);
+  }
+});
+
 const bookModel = mongoose.model("Book", bookSchema);
 
 module.exports = bookModel;

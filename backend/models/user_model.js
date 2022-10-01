@@ -28,10 +28,6 @@ const USER_SCHEMA = mongoose.Schema({
     type: String,
     default: "user",
   },
-  cart: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Cart",
-  },
   favoriteBooks: [
     {
       bookId:{
@@ -69,6 +65,14 @@ USER_SCHEMA.pre("save", async function (next) {
   }
 
   this.password = await bcrypt.hash(this.password, 10);
+});
+
+USER_SCHEMA.pre('remove',async function(next){
+  try{
+    await this.model('Cart').deleteOne({'userId':this._id});
+  }catch(e){
+    console.log(e);
+  }
 });
 
 // Return JWT token

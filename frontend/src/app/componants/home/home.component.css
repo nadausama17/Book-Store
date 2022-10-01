@@ -12,10 +12,6 @@ img{
 mat-icon{
     cursor: pointer;
 }
-/* mat-icon:hover{
-    cursor: pointer;
-    color:red;
-} */
 .redheart{
     cursor: pointer;
     color: red!important;

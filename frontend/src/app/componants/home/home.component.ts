@@ -49,10 +49,13 @@ export class HomeComponent implements OnInit {
   deleteBook() {
     this.deleteDialogue = false;
     this.bookServices.deleteBook(this.deletedBookId).subscribe(
-      (data) =>
-        (this.books = this.books.filter(
+      (data) =>{
+        this.books = this.books.filter(
           (book) => book._id != this.deletedBookId
-        )),
+        );
+        this.bookServices.favBooks = this.bookServices.favBooks.filter((b)=> b.bookId != this.deletedBookId);
+        this.bookServices.favBooksIds = this.bookServices.favBooksIds.filter((id)=> id != this.deletedBookId);
+      },
       (e) => console.log(e),
       () => {}
     );
