@@ -1,5 +1,12 @@
-<div class="row g-5 position-relative">
-  <div class="col-4" *ngFor="let book of books">
+<form>
+  <div>
+    <input [(ngModel)]="searchText" name="searchText" (input)="searchFun()" 
+    class="form-control w-100" type="text" placeholder="Enter book name or author name">
+  </div>
+</form>
+
+<div class="row mt-3 g-5 position-relative">
+  <div class="col-4" *ngFor="let book of tempBooks">
   <div class="card h-100 p-3">
     <div class="row">
       <h2 class="col">{{book.title}}</h2>

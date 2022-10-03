@@ -15,9 +15,11 @@ import { UserServices } from 'src/app/core/services/user_services';
 })
 export class HomeComponent implements OnInit {
   books!: Book[];
+  tempBooks!: Book[];
   user!: User | null;
   deleteDialogue: boolean = false;
   deletedBookId: any;
+  searchText:string = "";
 
   constructor(
     public bookServices: BookServices,
@@ -32,6 +34,7 @@ export class HomeComponent implements OnInit {
         return;
       }
       this.books = res.data;
+      this.tempBooks = res.data;
     });
   }
 
@@ -106,5 +109,15 @@ export class HomeComponent implements OnInit {
       },
       (e) => this.toastr.error(e.msg)
     )
+  }
+
+  searchFun(){
+    this.tempBooks = [...this.books];
+    
+    this.tempBooks = this.tempBooks.filter((b)=>{
+      let regex = new RegExp(this.searchText,'i');
+
+      return (b.title.search(regex) != -1) || (b.author.search(regex) !=-1);
+    });
   }
 }
